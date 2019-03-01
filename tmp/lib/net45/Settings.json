@@ -1,0 +1,47 @@
+[
+  {
+    "Name": "Quake/Source",
+    "Sens": 1.0,
+    "Yaw": 0.022
+  },
+  {
+    "Name": "Overwatch",
+    "Sens": 1.0,
+    "Yaw": 0.0066
+  },
+  {
+    "Name": "Rainbow6/Reflex",
+    "Sens": 1.0,
+    "Yaw": 0.018
+  },
+  {
+    "Name": "Fortnite Slider",
+    "Sens": 1.0,
+    "Yaw": 0.55550
+  },
+  {
+    "Name": "Fortnite Config",
+    "Sens": 1.0,
+    "Yaw": 2.2220
+  },
+  {
+    "Name": "QCDE",
+    "Sens": 1.0,
+    "Yaw": 0.0439453125
+  },
+  {
+    "Name": "Unit: deg",
+    "Sens": 1.0,
+    "Yaw": 1.0
+  },
+  {
+    "Name": "Unit: mrad",
+    "Sens": 1.0,
+    "Yaw": 0.05729577951308232087679815481411
+  },
+  {
+    "Name": "Unit: arcmin",
+    "Sens": 1.0,
+    "Yaw": 0.01666666666666666666666666666667
+  }
+]

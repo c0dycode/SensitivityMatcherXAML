@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SensitivityMatcherXAML</id>
+    <version>$version$</version>
+    <title>Sensitivity Matcher</title>
+    <authors>c0dycode</authors>
+    <owners>$author$</owners>
+    <!--<licenseUrl></licenseUrl> -->
+    <!--<projectUrl></projectUrl> -->
+    <!--<iconUrl></iconUrl> -->
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>C# Port of Kovaak's AutoIt script Sensitvity Matcher</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright 2019</copyright>
+  </metadata>
+</package>
