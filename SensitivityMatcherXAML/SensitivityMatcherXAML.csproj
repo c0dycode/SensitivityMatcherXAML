@@ -128,8 +128,11 @@
     <Compile Include="Classes\Hotkey.cs" />
     <Compile Include="ExtensionMethods\ExtensionMethods.cs" />
     <Compile Include="Helpers\Calculations.cs" />
-    <Compile Include="UIs\ChangeHotkeys.xaml.cs">
-      <DependentUpon>ChangeHotkeys.xaml</DependentUpon>
+    <Compile Include="UIs\ChangeHotkey.xaml.cs">
+      <DependentUpon>ChangeHotkey.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UIs\HotkeyOverview.xaml.cs">
+      <DependentUpon>HotkeyOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="UIs\NewProfile.xaml.cs">
       <DependentUpon>NewProfile.xaml</DependentUpon>
@@ -152,8 +155,13 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="UIs\ChangeHotkeys.xaml">
+    <Page Include="UIs\ChangeHotkey.xaml">
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UIs\HotkeyOverview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UIs\NewProfile.xaml">
       <Generator>MSBuild:Compile</Generator>
