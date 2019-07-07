@@ -27,8 +27,6 @@ Use at your own risk!
 # Used Nuget Packages
 - Costura.Fody
 - PropertyChanged.Fody
-- Squirrel.Windows (should I decide an auto-update feature could be handy)
-- NuGet.CommandLine (for developers only)
 
 # Credit
 - KovaaK
