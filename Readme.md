@@ -10,7 +10,7 @@ And since (afaik) there are some Anti-Cheat Tools out there that don't seem to l
 I thought I could just port this over to C#.
 
 # Missing features
-- Rebinding Hotkeys (UI for this will be added in the future)
+- Unless I forgot something, most basic features should be included
 
 # Current Hotkeys
 * Numpad 2 = Turn a lot
