@@ -8,12 +8,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 
@@ -30,7 +32,11 @@ namespace SensitivityMatcherXAML
         public List<string> Presets { get; set; }               = new List<string>();
         public List<ConfigSetting> ConfigsList { get; set; }    = new List<ConfigSetting>();
 
+        public List<Hotkey> Hotkeys { get; set; }               = null;
+
         public static PhysicalStats PhysicalStats               = null;
+
+        public static HotkeyOverview HotkeyOverview             = null;
 
         public BaseSettings BaseSettings { get; set; }          = null;
 
@@ -41,11 +47,11 @@ namespace SensitivityMatcherXAML
         private const decimal _precisePI = 3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679821480865132823066470938446095505822317253594081284811174502841027019385211055596446229489549303819644288109756659334461284756482337867831652712019091456485669234603486104543266482133936072602491412737245870066063155881748815209209628292540917153643678925903600113305305488204665213841469519415116M;
         private int _iMode;
         private IntPtr wndHandle = IntPtr.Zero;
-        private const int HOTKEY_TEST = 9539;
+        private const int HOTKEY_TURNONCE = 9539;
         private const int HOTKEY_TURNLESS = 9538;
         private const int HOTKEY_TURNMORE = 9540;
         private const int HOTKEY_CLEARBOUNDS = 9541;
-        private const int HOTKEY_TURNALOT = 9542;
+        private const int HOTKEY_TURNMULTIPLE = 9542;
         #endregion
 
         // No need to implement this, since Fody PropertyChanged takes care of this during compilation
@@ -118,6 +124,7 @@ namespace SensitivityMatcherXAML
             source.AddHook(WndProc);
             wndHandle = new WindowInteropHelper(this).Handle;
             this.DataContext = this;
+            ReadHotkeys();
             ReadPresets();
         }
 
@@ -130,6 +137,21 @@ namespace SensitivityMatcherXAML
             ConfigsList.AddRange(JsonWrapper.JsonFileToList<ConfigSetting>("Settings.json"));
             this.cbPresets.SelectedIndex = Presets.IndexOf("Quake/Source");
             _iMode = 1;
+        }
+
+        private void ReadHotkeys()
+        {
+            var hotkeys = new List<Hotkey>();
+            if (File.Exists("Hotkeys.json"))
+                hotkeys.AddRange(JsonWrapper.JsonFileToList<Hotkey>("Hotkeys.json"));
+            else
+            {
+                hotkeys = Hotkey.CreateDefaultHotkeys();
+                hotkeys.SaveHotkeys();
+            }
+            foreach (var hotkey in hotkeys)
+                hotkey.ReadModifier();
+            Hotkeys = hotkeys;
         }
 
         private void CbPresets_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -210,29 +232,39 @@ namespace SensitivityMatcherXAML
             #region Basic Hotkeys
             if (!_bHotkeysRegistered)
             {
-                if (!Native.RegisterHotKey(wndHandle, HOTKEY_TURNLESS, MOD_NONE, VK_NUMPAD4))
+                if (!Native.RegisterHotKey(wndHandle, HOTKEY_TURNLESS, 
+                    (uint)Hotkeys.Where(x => x.Target == HotkeyTarget.TurnLess.ToString()).First().ModifierKeys,
+                    Hotkeys.Where(x => x.Target == HotkeyTarget.TurnLess.ToString()).First().KeyCode))
                 {
                     MessageBox.Show("Failed to register Hotkey for TurnLess!");
                     return;
                 }
-                if (!Native.RegisterHotKey(wndHandle, HOTKEY_TEST, MOD_NONE, VK_NUMPAD5))
+                if (!Native.RegisterHotKey(wndHandle, HOTKEY_TURNONCE,
+                    (uint)Hotkeys.Where(x => x.Target == HotkeyTarget.TurnOnce.ToString()).First().ModifierKeys,
+                    Hotkeys.Where(x => x.Target == HotkeyTarget.TurnOnce.ToString()).First().KeyCode))
                 {
-                    MessageBox.Show("Failed to register Hotkey for TurnMouse!");
+                    MessageBox.Show("Failed to register Hotkey for TurnOnce!");
                     return;
                 }
-                if (!Native.RegisterHotKey(wndHandle, HOTKEY_TURNMORE, MOD_NONE, VK_NUMPAD6))
+                if (!Native.RegisterHotKey(wndHandle, HOTKEY_TURNMORE,
+                    (uint)Hotkeys.Where(x => x.Target == HotkeyTarget.TurnMore.ToString()).First().ModifierKeys,
+                    Hotkeys.Where(x => x.Target == HotkeyTarget.TurnMore.ToString()).First().KeyCode))
                 {
                     MessageBox.Show("Failed to register Hotkey for TurnMore!");
                     return;
                 }
-                if (!Native.RegisterHotKey(wndHandle, HOTKEY_CLEARBOUNDS, MOD_NONE, VK_NUMPAD8))
+                if (!Native.RegisterHotKey(wndHandle, HOTKEY_CLEARBOUNDS,
+                    (uint)Hotkeys.Where(x => x.Target == HotkeyTarget.ClearBounds.ToString()).First().ModifierKeys,
+                    Hotkeys.Where(x => x.Target == HotkeyTarget.ClearBounds.ToString()).First().KeyCode))
                 {
                     MessageBox.Show("Failed to register Hotkey for ClearBounds!");
                     return;
                 }
-                if (!Native.RegisterHotKey(wndHandle, HOTKEY_TURNALOT, MOD_NONE, VK_NUMPAD2))
+                if (!Native.RegisterHotKey(wndHandle, HOTKEY_TURNMULTIPLE,
+                    (uint)Hotkeys.Where(x => x.Target == HotkeyTarget.TurnMultiple.ToString()).First().ModifierKeys,
+                    Hotkeys.Where(x => x.Target == HotkeyTarget.TurnMultiple.ToString()).First().KeyCode))
                 {
-                    MessageBox.Show("Failed to register Hotkey for TurnMore!");
+                    MessageBox.Show("Failed to register Hotkey for TurnMultiple!");
                     return;
                 }
                 _bHotkeysRegistered = true;
@@ -295,7 +327,7 @@ namespace SensitivityMatcherXAML
                 case WM_HOTKEY:
                     switch (wParam.ToInt32())
                     {
-                        case HOTKEY_TEST:
+                        case HOTKEY_TURNONCE:
                             MoveMouse(1);
                             break;
                         case HOTKEY_TURNLESS:
@@ -307,7 +339,7 @@ namespace SensitivityMatcherXAML
                         case HOTKEY_CLEARBOUNDS:
                             ClearBounds();
                             break;
-                        case HOTKEY_TURNALOT:
+                        case HOTKEY_TURNMULTIPLE:
                             MoveMouse(BaseSettings.GCycle);
                             break;
                     }
@@ -437,10 +469,10 @@ namespace SensitivityMatcherXAML
             if (_bHotkeysRegistered)
             {
                 Native.UnregisterHotKey(wndHandle, HOTKEY_TURNLESS);
-                Native.UnregisterHotKey(wndHandle, HOTKEY_TEST);
+                Native.UnregisterHotKey(wndHandle, HOTKEY_TURNONCE);
                 Native.UnregisterHotKey(wndHandle, HOTKEY_TURNMORE);
                 Native.UnregisterHotKey(wndHandle, HOTKEY_CLEARBOUNDS);
-                Native.UnregisterHotKey(wndHandle, HOTKEY_TURNALOT);
+                Native.UnregisterHotKey(wndHandle, HOTKEY_TURNMULTIPLE);
                 _bHotkeysRegistered = false;
             }
         }
@@ -452,6 +484,11 @@ namespace SensitivityMatcherXAML
             {
                 PhysicalStats.Close();
                 PhysicalStats = null;
+            }
+            if(HotkeyOverview != null)
+            {
+                HotkeyOverview.Close();
+                HotkeyOverview = null;
             }
         }
 
@@ -477,7 +514,29 @@ namespace SensitivityMatcherXAML
 
         private void BtnChangeHotkeys_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+
+            if (HotkeyOverview == null)
+            {
+                // Disable Hotkeys if the user wants to customize the Hotkeys
+                if (BEnableHotkeys)
+                    UnRegisterHotkeys();
+
+                HotkeyOverview = new HotkeyOverview(Hotkeys);
+                HotkeyOverview.Closed += (o, a) => 
+                {
+                    HotkeyOverview = null;
+                    // Re-Enable the Hotkeys if the Checkbox is still checked
+                    if (BEnableHotkeys)
+                        RegisterHotkeys();
+                };
+                HotkeyOverview.Top = Application.Current.MainWindow.Top;
+                HotkeyOverview.Left = Application.Current.MainWindow.Left + Application.Current.MainWindow.Width - 4;
+                HotkeyOverview.Show();
+            }
+            else
+            {
+                HotkeyOverview.Activate();
+            }
         }
 
         private void CheckBoxHotkeyEnabled_Checked(object sender, RoutedEventArgs e)
@@ -486,7 +545,8 @@ namespace SensitivityMatcherXAML
             {
                 SwapYawAndSens();
             }
-            RegisterHotkeys();
+            if(HotkeyOverview == null)
+                RegisterHotkeys();
         }
 
         private void CheckBoxHotkeyEnabled_Unchecked(object sender, RoutedEventArgs e)

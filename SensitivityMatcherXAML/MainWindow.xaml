@@ -59,7 +59,7 @@
             Checked="CheckBoxHotkeyEnabled_Checked"
             Content="Enable Hotkeys"
             FontSize="10px"
-            IsChecked="{Binding Path=bEnableHotkeys}"
+            IsChecked="{Binding Path=BEnableHotkeys}"
             Unchecked="CheckBoxHotkeyEnabled_Unchecked" />
 
         <!--  TextBox Sensitivity  -->
@@ -293,8 +293,7 @@
             x:Name="btnChangeHotkeys"
             Grid.Row="8"
             Margin="5"
-            Click="BtnChangeHotkeys_Click"
-            IsEnabled="False">
+            Click="BtnChangeHotkeys_Click">
             Change Hotkeys
         </Button>
 
