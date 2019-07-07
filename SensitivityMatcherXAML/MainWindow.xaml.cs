@@ -508,6 +508,8 @@ namespace SensitivityMatcherXAML
                 settings = new ConfigSetting { Name = cbPresets.SelectedItem.ToString(), Sens = 1.0, Yaw = BaseSettings.Yaw }.SaveConfigSetting(ConfigsList);
             }
 
+            Hotkeys.SaveHotkeys();
+
             if (presets && settings)
                 MessageBox.Show("Successfully saved Presets and Settings!");
         }
