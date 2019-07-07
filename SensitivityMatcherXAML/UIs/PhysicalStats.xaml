@@ -9,6 +9,7 @@
     Width="216"
     Height="250"
     Background="Gray"
+    Icon="/Sensitivity Matcher;component/shell32_16739.ico"
     ResizeMode="NoResize"
     mc:Ignorable="d">
     <Canvas>
