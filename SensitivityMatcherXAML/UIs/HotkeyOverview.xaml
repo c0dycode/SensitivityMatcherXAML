@@ -1,0 +1,78 @@
+﻿<Window
+    x:Class="SensitivityMatcherXAML.UIs.HotkeyOverview"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SensitivityMatcherXAML.UIs"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Hotkey Overview"
+    Width="350px"
+    Height="250px"
+    Background="Gray"
+    Icon="/Sensitivity Matcher;component/shell32_16739.ico"
+    mc:Ignorable="d">
+    <Canvas>
+        <Label>Turn Less</Label>
+        <TextBox
+            x:Name="TbTurnLess"
+            Canvas.Left="5px"
+            Canvas.Top="25px"
+            MinWidth="180px"
+            MouseDoubleClick="ChangeHotkey_MouseDoubleClick"
+            TextAlignment="Center" />
+        <Label Canvas.Top="40px">Turn Once</Label>
+
+        <TextBox
+            x:Name="TbTurnOnce"
+            Canvas.Left="5px"
+            Canvas.Top="65px"
+            MinWidth="180px"
+            MouseDoubleClick="ChangeHotkey_MouseDoubleClick"
+            TextAlignment="Center" />
+
+        <Label Canvas.Top="80px">Turn More</Label>
+        <TextBox
+            x:Name="TbTurnMore"
+            Canvas.Left="5px"
+            Canvas.Top="105px"
+            MinWidth="180px"
+            MouseDoubleClick="ChangeHotkey_MouseDoubleClick"
+            TextAlignment="Center" />
+
+        <Label Canvas.Top="120px">Turn Multiple</Label>
+        <TextBox
+            x:Name="TbTurnMultiple"
+            Canvas.Left="5px"
+            Canvas.Top="145px"
+            MinWidth="180px"
+            MouseDoubleClick="ChangeHotkey_MouseDoubleClick"
+            TextAlignment="Center" />
+
+        <Label Canvas.Top="160px">Clear Bounds</Label>
+        <TextBox
+            x:Name="TbClearBounds"
+            Canvas.Left="5px"
+            Canvas.Top="185px"
+            MinWidth="180px"
+            MouseDoubleClick="ChangeHotkey_MouseDoubleClick"
+            TextAlignment="Center" />
+
+        <Button
+            x:Name="BtnOK"
+            Canvas.Top="40px"
+            Canvas.Right="5px"
+            MinWidth="120px"
+            MinHeight="50px"
+            Click="BtnOK_Click"
+            Content="OK" />
+
+        <Button
+            x:Name="BtnCancel"
+            Canvas.Right="5px"
+            Canvas.Bottom="40px"
+            MinWidth="120px"
+            MinHeight="50px"
+            Click="BtnCancel_Click"
+            Content="Cancel" />
+    </Canvas>
+</Window>
