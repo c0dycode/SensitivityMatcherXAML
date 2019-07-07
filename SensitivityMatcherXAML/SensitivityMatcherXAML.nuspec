@@ -10,8 +10,10 @@
     <!--<projectUrl></projectUrl> -->
     <!--<iconUrl></iconUrl> -->
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>C# Port of Kovaak's AutoIt script Sensitvity Matcher</description>
-    <releaseNotes></releaseNotes>
+    <description>C# Port of KovaaK's AutoIt script Sensitvity Matcher</description>
     <copyright>Copyright 2019</copyright>
   </metadata>
+  <files>
+    <file src="bin\Release\*.*" target="lib\net45\" exclude="*.pdb;*.nupkg;*.vshost.*"/>
+  </files>
 </package>

@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace SensitivityMatcherXAML.Converters
 {
-    class YawToRevolutionsConverter : IValueConverter
+    class IncrementToRevolutionsConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

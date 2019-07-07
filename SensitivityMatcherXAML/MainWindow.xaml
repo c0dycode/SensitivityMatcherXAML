@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SensitivityMatcherXAML"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Sensitivity Matcher"
+    Title="Sensitivity Matcher XAML"
     Width="400"
     Height="305"
     Background="Gray"
@@ -28,8 +28,9 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
-            <ColumnDefinition Width="0.7*" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
+
         <!--  Label Presets  -->
         <Label
             x:Name="lblPresets"
@@ -38,6 +39,7 @@
             HorizontalAlignment="Center">
             Select preset Yaw:
         </Label>
+
         <!--  ComboBox Presets  -->
         <ComboBox
             x:Name="cbPresets"
@@ -47,6 +49,8 @@
             Margin="10,4,10,4"
             ItemsSource="{Binding Path=Presets, BindsDirectlyToSource=True, UpdateSourceTrigger=PropertyChanged}"
             SelectionChanged="CbPresets_SelectionChanged" />
+
+        <!--  CheckBox EnableHotkeys  -->
         <CheckBox
             x:Name="checkBoxHotkeyEnabled"
             Grid.Column="2"
@@ -57,6 +61,7 @@
             FontSize="10px"
             IsChecked="{Binding Path=bEnableHotkeys}"
             Unchecked="CheckBoxHotkeyEnabled_Unchecked" />
+
         <!--  TextBox Sensitivity  -->
         <TextBox
             x:Name="tbSens"
@@ -65,7 +70,8 @@
             Margin="10,4"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
-            Text="{Binding Path=Sens}" />
+            Text="{Binding Path=BaseSettings.Sens, UpdateSourceTrigger=PropertyChanged}" />
+
         <!--  Label Multiply  -->
         <Label
             x:Name="lblMultiply"
@@ -76,6 +82,7 @@
             VerticalContentAlignment="Center">
             x
         </Label>
+
         <!--  TextBox Yaw  -->
         <TextBox
             x:Name="tbYaw"
@@ -84,7 +91,8 @@
             Margin="10,4"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center"
-            Text="{Binding Path=Yaw}" />
+            Text="{Binding Path=BaseSettings.Yaw, BindsDirectlyToSource=True}" />
+
         <!--  Label Equals  -->
         <Label
             x:Name="lblEquals"
@@ -96,6 +104,7 @@
             VerticalContentAlignment="Center">
             =
         </Label>
+
         <!--  TextBox Increment  -->
         <TextBox
             x:Name="tbIncrement"
@@ -113,6 +122,7 @@
                 </MultiBinding>
             </TextBox.Text>
         </TextBox>
+
         <!--  Label Sensitivity  -->
         <Label
             x:Name="lblSens"
@@ -140,6 +150,7 @@
             VerticalAlignment="Bottom">
             Yaw (deg)
         </Label>
+
         <!--  Label Increment  -->
         <Label
             x:Name="lblIncrement"
@@ -153,12 +164,14 @@
             VerticalAlignment="Bottom">
             Increment
         </Label>
+
         <!--  GUI Seperator  -->
         <Separator
             Grid.Row="2"
             Grid.Column="0"
             Grid.ColumnSpan="3"
             Margin="0,15,0,0" />
+
         <!--  Label Optional Testing Parameters  -->
         <Label
             x:Name="lblOptionalTestingParameters"
@@ -168,6 +181,7 @@
             VerticalContentAlignment="Bottom">
             Optional Testing Parameters
         </Label>
+
         <!--  Label Revolution  -->
         <Label
             x:Name="lblRevolutuion"
@@ -176,6 +190,7 @@
             HorizontalAlignment="Right">
             One Revolution of
         </Label>
+
         <!--  TextBox Revolution  -->
         <TextBox
             x:Name="tbRevolution"
@@ -185,8 +200,9 @@
             HorizontalContentAlignment="Center"
             Background="LightGray"
             IsReadOnly="True"
-            Text="{Binding ElementName=tbYaw, Path=Text, Converter={StaticResource YawToRevolutionsConverter}}" />
+            Text="{Binding Path=BaseSettings.Increment, Converter={StaticResource IncrementToRevolutionsConverter}, Mode=OneWay}" />
         <!--  Label Revolution Counts  -->
+
         <Label
             x:Name="lblRevCounts"
             Grid.Row="4"
@@ -202,13 +218,16 @@
             HorizontalAlignment="Right">
             Move Partitions of
         </Label>
+
+        <!--  TextBox Partitions  -->
         <TextBox
             x:Name="tbPartitions"
             Grid.Row="5"
             Grid.Column="1"
             Margin="10,4"
             HorizontalContentAlignment="Center"
-            Text="{Binding Path=gPartition}" />
+            Text="{Binding Path=BaseSettings.GPartition}" />
+
         <!--  Label Partition Counts  -->
         <Label
             x:Name="lblPartCounts"
@@ -216,6 +235,7 @@
             Grid.Column="2">
             counts
         </Label>
+
         <!--  Label Frequency  -->
         <Label
             x:Name="lblFrequency"
@@ -224,6 +244,7 @@
             HorizontalAlignment="Right">
             at a Frequency of
         </Label>
+
         <!--  TextBox Frequency  -->
         <TextBox
             x:Name="tbFrequency"
@@ -231,7 +252,8 @@
             Grid.Column="1"
             Margin="10,4"
             HorizontalContentAlignment="Center"
-            Text="{Binding Path=Freq}" />
+            Text="{Binding Path=BaseSettings.Freq}" />
+
         <!--  Label Hz  -->
         <Label
             x:Name="lblHz"
@@ -239,6 +261,7 @@
             Grid.Column="2">
             Hz
         </Label>
+
         <!--  Label Cycle  -->
         <Label
             x:Name="lblCycle"
@@ -247,6 +270,7 @@
             HorizontalAlignment="Right">
             for a Cycle of
         </Label>
+
         <!--  TextBox Cycle  -->
         <TextBox
             x:Name="tbCycle"
@@ -254,7 +278,8 @@
             Grid.Column="1"
             Margin="10,4"
             HorizontalContentAlignment="Center"
-            Text="{Binding Path=gCycle}" />
+            Text="{Binding Path=BaseSettings.GCycle}" />
+
         <!--  Label Cycle Revolutions  -->
         <Label
             x:Name="lblcycleRevs"
@@ -262,6 +287,7 @@
             Grid.Column="2">
             revolutions.
         </Label>
+
         <!--  Button Change Hotkeys  -->
         <Button
             x:Name="btnChangeHotkeys"
@@ -271,15 +297,17 @@
             IsEnabled="False">
             Change Hotkeys
         </Button>
-        <!--  Button Unused Info  -->
+
+        <!--  Button Physical Stats  -->
         <Button
-            x:Name="btnInfo"
+            x:Name="btnPhysicalStats"
             Grid.Row="8"
             Grid.Column="1"
             Margin="5"
-            IsEnabled="False">
-            Info (Unavailable)
+            Click="BtnPhysicalStats_Click">
+            Physical Stats
         </Button>
+
         <!--  Button Save Current  -->
         <Button
             x:Name="btnSaveCurrent"

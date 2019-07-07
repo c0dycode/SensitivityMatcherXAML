@@ -1,4 +1,4 @@
-﻿using SensitivityMatcherCS.Classes;
+﻿using SensitivityMatcherXAML.Classes;
 using SimpleJsonWrapper;
 using System;
 using System.Collections.Generic;
@@ -20,6 +20,7 @@ namespace SensitivityMatcherXAML.ExtensionMethods
             }
             else
                 configSettings.Add(setting);
+
             return JsonWrapper.WriteToJsonFile("Settings.json", configSettings);
         }
     }

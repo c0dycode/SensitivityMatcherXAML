@@ -7,7 +7,6 @@
     StartupUri="MainWindow.xaml">
     <Application.Resources>
         <converter:MultiTextToIncrementConverter x:Key="MultiTextToIncrementConverter" />
-        <converter:YawToRevolutionsConverter x:Key="YawToRevolutionsConverter" />
+        <converter:IncrementToRevolutionsConverter x:Key="IncrementToRevolutionsConverter" />
     </Application.Resources>
-
 </Application>

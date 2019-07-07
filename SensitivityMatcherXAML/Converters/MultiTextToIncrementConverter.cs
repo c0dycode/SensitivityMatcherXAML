@@ -20,7 +20,7 @@ namespace SensitivityMatcherXAML.Converters
                 var bOne = double.TryParse(values[0].ToString(), out one);
                 var bTwo = double.TryParse(values[1].ToString(), out two);
                 if(bOne && bTwo)
-                    return (one * two).ToString();
+                    return Math.Round(one * two, 6).ToString();
             }
             return "0";
         }
