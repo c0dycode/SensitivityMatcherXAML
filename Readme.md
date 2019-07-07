@@ -9,6 +9,12 @@ Well, I'm always looking for new small projects, so I can program a few things t
 And since (afaik) there are some Anti-Cheat Tools out there that don't seem to like AutoHotkey (and I'm just assuming that might be the case for AutoIt aswell),
 I thought I could just port this over to C#.
 
+# Usage and example:
+This is a tool that will allow you to easily convert your mouse senitivity from one game to another, without having to rely on any third party website or person!
+
+See this video from KovaaK himself :)
+https://youtu.be/PBHAsvVU55s
+
 # Missing features
 - Unless I forgot something, most basic features should be included
 
