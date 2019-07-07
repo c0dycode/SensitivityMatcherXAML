@@ -13,11 +13,11 @@ I thought I could just port this over to C#.
 - Rebinding Hotkeys (UI for this will be added in the future)
 
 # Current Hotkeys
-Numpad 2 = Turn a lot
-Numpad 4 = Turn less
-Numpad 5 = Turn once
-Numpad 6 = Turn more
-Numpad 8 = Clear Bounds (This is still buggy IIRC)
+* Numpad 2 = Turn a lot
+* Numpad 4 = Turn less
+* Numpad 5 = Turn once
+* Numpad 6 = Turn more
+* Numpad 8 = Clear Bounds (This is still buggy IIRC)
 
 # Disclaimer
 This MIGHT be usable with games that do block/ban AutoIT-scripts, but obviously I can neither guarantee it, nor will I attempt to work around those limitations.
