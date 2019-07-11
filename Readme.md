@@ -10,7 +10,7 @@ And since (afaik) there are some Anti-Cheat Tools out there that don't seem to l
 I thought I could just port this over to C#.
 
 # Usage and example:
-This is a tool that will allow you to easily convert your mouse senitivity from one game to another, without having to rely on any third party website or person!
+This is a tool that will allow you to easily convert your mouse sensitivity from one game to another, without having to rely on any third party website or person!
 
 See this video from KovaaK himself :)
 https://youtu.be/PBHAsvVU55s
